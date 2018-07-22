@@ -148,7 +148,11 @@ def main(argv=None):
 
             im_fn_list = get_images()
             for im_fn in im_fn_list:
-                im = cv2.imread(im_fn)[:, :, ::-1]
+                try:                                                      
+                    im = cv2.imread(im_fn)[:, :, ::-1]                    
+                except TypeError:                                         
+                    print('Error occurs when processing {}'.format(im_fn))
+                    continue                                              
                 start_time = time.time()
                 im_resized, (ratio_h, ratio_w) = resize_image(im)
 
